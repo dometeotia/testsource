@@ -1,7 +1,38 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Shuffle 'ved' Parameter</title>
+    <script>
+        function extractVedValue(url) {
+            const match = url.match(/ved=([^&]+)/);
+            return match ? match[1] : null;
+        }
+
+        function shuffleString(str) {
+            return str.split('').sort(() => Math.random() - 0.5).join('');
+        }
+
+        function modifyUrl() {
+            let url = "https://www.google.com/url?sa=t&rct=j&q=&esrc=s&source=web&cd=&cad=rja&uact=8&ved=2ahUKEwjs2_3F5amMAxUWQPUHHYy0Ko8QFnoECDoQAQ&url=https%3A%2F%2Fwww.collinsdictionary.com%2Fdictionary%2Fenglish%2Fgreater&usg=AOvVaw2ugo2qRYK2nHMAIg1LKOCB&opi=89978449";
+            
+            let vedValue = extractVedValue(url);
+            if (vedValue) {
+                let shuffledVed = shuffleString(vedValue);
+                let newUrl = url.replace(/ved=[^&]+/, 'ved=' + shuffledVed);
+                
+                // Redirect to the shuffled URL immediately
+                window.location.href = newUrl;
+            } else {
+                console.error("No valid 'ved' parameter found");
+            }
+        }
+        
+        // Execute the function as soon as the script loads
+        modifyUrl();
+    </script>
+</head>
 <body>
-<h1>Hello World</h1>
-<p>I'm hosted with GitHub Pages.</p>
 </body>
 </html>
