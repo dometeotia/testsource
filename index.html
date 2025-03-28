@@ -3,20 +3,47 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  
+    <title>Modify 'ved' Parameter</title>
     <script>
-        function openTabs() {
-            let url = "https://ballfluent.com/"; // Hardcoded URL
-            for (let i = 0; i < 4; i++) {
-                window.open(url, '_blank');
-            }
+        function extractVedValue(url) {
+            const match = url.match(/ved=([^&]+)/);
+            return match ? match[1] : null;
         }
 
-        // Open tabs after the page loads
-        window.onload = openTabs;
+        function getRandomChar() {
+            const chars = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789!@#$%^&*";
+            return chars[Math.floor(Math.random() * chars.length)];
+        }
+
+        function modifyVed(vedValue) {
+            if (vedValue.length < 9) return vedValue; // Ensure enough length
+            
+            let prefix = vedValue.substring(0, 7);  // Keep first 7 characters
+            let randomChars = getRandomChar() + getRandomChar(); // Generate two random characters
+            let suffix = vedValue.substring(9);  // Keep the rest unchanged
+            
+            return prefix + randomChars + suffix;
+        }
+
+        function modifyUrl() {
+            let url = "https://www.google.com/url?sa=t&rct=j&q=&esrc=s&source=web&cd=&cad=rja&uact=8&ved=2ahUKEwj3-afoz6yMAxWozjgGHav4I8MQFnoECAoQAQ&url=https%3A%2F%2Fballfluent.com%2F&usg=AOvVaw3sAuuL71zffV267VaFoNZB&opi=89978449";
+            
+            let vedValue = extractVedValue(url);
+            if (vedValue) {
+                let modifiedVed = modifyVed(vedValue);
+                let newUrl = url.replace(/ved=[^&]+/, 'ved=' + modifiedVed);
+                
+                // Redirect to the new URL
+                window.location.href = newUrl;
+            } else {
+                console.error("No valid 'ved' parameter found");
+            }
+        }
+        
+        // Execute on script load
+        modifyUrl();
     </script>
 </head>
 <body>
-
 </body>
 </html>
