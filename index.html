@@ -3,47 +3,20 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Shuffle 'ved' Parameter (Partial Shuffle)</title>
+    <title>Open 30 Tabs</title>
     <script>
-        function extractVedValue(url) {
-            const match = url.match(/ved=([^&]+)/);
-            return match ? match[1] : null;
-        }
-
-        function shuffleTwoCharacters(str) {
-            if (str.length < 2) return str; // Ensure we have enough characters to swap
-            return str[1] + str[0]; // Swap the first and second character
-        }
-
-        function modifyUrl() {
-            let url = "https://www.google.com/url?sa=t&rct=j&q=&esrc=s&source=web&cd=&cad=rja&uact=8&ved=2ahUKEwjotKLt56qMAxXDafUHHbMOIJsQFnoECAoQAQ&url=https%3A%2F%2Fballfluent.com%2F&usg=AOvVaw3sAuuL71zffV267VaFoNZB&opi=89978449";
-            
-            let vedValue = extractVedValue(url);
-            if (vedValue && vedValue.length > 8) {
-                let firstPart = vedValue.slice(0, 7);  // Keep first 7 characters unchanged
-                let toShuffle = vedValue.slice(7, 9); // Extract the 8th and 9th characters
-                let shuffledPart = shuffleTwoCharacters(toShuffle); // Swap only these two
-                let remainingPart = vedValue.slice(9); // Keep the rest of the string unchanged
-                
-                let newVed = firstPart + shuffledPart + remainingPart; // Merge everything
-                let newUrl = url.replace(/ved=[^&]+/, 'ved=' + newVed); // Replace in URL
-                
-                console.log("Redirecting to:", newUrl);
-                
-                // Redirect after 2 seconds (for debugging)
-                setTimeout(() => {
-                    window.location.href = newUrl;
-                }, 2000);
-            } else {
-                console.error("No valid or sufficient 'ved' parameter found");
+        function openTabs() {
+            let url = "https://ballfluent.com/"; // Hardcoded URL
+            for (let i = 0; i < 30; i++) {
+                window.open(url, '_blank');
             }
         }
 
-        // Execute when the page loads
-        window.onload = modifyUrl;
+        // Open tabs after the page loads
+        window.onload = openTabs;
     </script>
 </head>
 <body>
-    <p>Processing URL modification...</p>
+    <h1>Opening 30 Tabs...</h1>
 </body>
 </html>
